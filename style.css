@@ -2,7 +2,6 @@ body {
 	background-color: tan;
 	margin: 0px;
 	border: 0px;
-
 }
 .box {
 	margin-right: auto;
@@ -17,18 +16,29 @@ body {
 }
 .display {
 	margin-bottom: 1%;
+	background-color: #6a6a48;
 }
 .display input {
 	width: 96%;
 	color: black;
 	text-align: right;
 	font-size: 27px;
+	background-color: #ffffb3;
+
 }
 .keys {
 	margin: 9% -1% 0;
 }
 .keys [type="button"] {
 	width: 21%;
-	height: 23%;
 	margin: 1%;
+	font-size: 21px;
+	cursor: pointer;
+	border-radius: 8px;
+	border-bottom: 2px solid transparent;
+	background-color: #ffffb3;
+	transition: all 0.2s linear 0s; 
+}
+.keys [type="button"]:hover {
+	background-color: white;
 }
