@@ -1,5 +1,11 @@
+a {
+	text-decoration: none;
+}
 body {
-	background-color: tan;
+	background: url(palm.png) no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-color: #e6ffe6;
 	margin: 0px;
 	border: 0px;
 }
@@ -29,16 +35,25 @@ body {
 .keys {
 	margin: 9% -1% 0;
 }
-.keys [type="button"] {
-	width: 21%;
-	margin: 1%;
-	font-size: 21px;
+.keys a {
+	color: black;
+	display: inline-block;
+	width: 36px;
+	margin: 2%;
+	font-size: 36px;
 	cursor: pointer;
 	border-radius: 8px;
-	border-bottom: 2px solid transparent;
 	background-color: #ffffb3;
 	transition: all 0.2s linear 0s; 
 }
-.keys [type="button"]:hover {
+.keys a:hover {
 	background-color: white;
+}
+.keys a:active {
+	background-color: #ffb3d9;
+}
+#e {
+	display: block;
+    width: 88%;
+    margin: 2% 6% 0 6%;
 }
