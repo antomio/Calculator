@@ -18,7 +18,7 @@ function resetCalculator(curValue){
 
 	resetCalculator("0");
 
-	$(".num").click(function() {
+	$(".num").on("click", function() {
 		if ($("#d").data("fromPrevious") == true){
 			resetCalculator($(this).text());
 		} else if (($("#d").data("isPendingFunction") == true) && 
@@ -56,11 +56,49 @@ function resetCalculator(curValue){
 		}
 	});
 
+// 	$(".num").click(function() {
+// 		if ($("#d").data("fromPrevious") == true){
+// 			resetCalculator($(this).text());
+// 		} else if (($("#d").data("isPendingFunction") == true) && 
+// 			($("#d").data("valueOneLocked") == false)){
+// 				$("#d").data("valueOne", $("#d").val());
+// 				$("#d").data("valueOneLocked", true);
+// 				$("#d").val($(this).text());
+// 				$("#d").data("valueTwo", $("#d").val());
+// 				$("#d").data("valueTwoLocked", true);
+
+// // Clicking a number AGAIN, after first number is locked and already there's a value for the second number
+
+// 		} else if (($("#d").data("isPendingFunction") == true ) &&
+// 			($("#d").data("valueOneLocked") == true)){
+
+// 			var curValue = $("#d").val();
+// 			var toAdd = $(this).text();
+// 			var newValue = curValue + toAdd;
+
+// 			$("#d").val(newValue);
+// 			$("#d").data("valueTwo", $("#d").val());
+// 			$("#d").data("valueTwoLocked", true);
+
+// // Clicking on a fresh number
+	
+// 		} else {
+// 			var curValue = $("#d").val();
+// 			if (curValue == "0") {
+// 				curValue = "";
+// 			}
+// 			var toAdd = $(this).text();
+// 			var newValue = curValue + toAdd;
+
+// 			$("#d").val(newValue);
+// 		}
+// 	});
+
 	$(".clear").click(function() {
 		resetCalculator("0");
 	});
 
-	$(".equals").click(function() {
+	var equals = function() {
 		if (($("#d").data("valueOneLocked") == true) &&
 			($("#d").data("valueTwoLocked") == true)){
 
@@ -85,9 +123,12 @@ function resetCalculator(curValue){
 		} else {
 			//both numbers are NOT locked. do nothing.
 		}
-	});
+	};
+
+	$(".equals").click(equals);
 
 	$(".function").click(function() {
+		equals();
 		if ($("#d").data("fromPrevious") == true){
 			resetCalculator($("#d").val());
 			$("#d").data("valueOneLocked", false);
