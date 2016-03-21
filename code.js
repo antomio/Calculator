@@ -98,10 +98,33 @@ function resetCalculator(curValue){
 		resetCalculator("0");
 	});
 
+	var functionButton = function() {
+		equals();
+		if ($("#d").data("fromPrevious") == true){
+			resetCalculator($("#d").val());
+			$("#d").data("valueOneLocked", false);
+			$("#d").data("fromPrevious", false);
+		}
+// Let it be known that a function has been selected
+		var pendingFunction = $(this).text();
+		$("#d").data("isPendingFunction", true);
+		$("#d").data("thePendingFunction", pendingFunction);
+// Visually represent the current function
+		$(".function").removeClass("pendingFunction");
+		$(this).addClass("pendingFunction");
+	};
+
+
+	var previousAction;
+	var previousValue;
+
 	var equals = function() {
 		if (($("#d").data("valueOneLocked") == true) &&
 			($("#d").data("valueTwoLocked") == true)){
 
+			previousAction = $("#d").data("thePendingFunction");
+			previousValue = $("#d").data("valueTwo");
+		
 			if ($("#d").data("thePendingFunction") == "+"){
 				var finalValue = parseFloat($("#d").data("valueOne")) + 
 				parseFloat($("#d").data("valueTwo"));
@@ -119,31 +142,41 @@ function resetCalculator(curValue){
 			$("#d").val(finalValue);
 
 			resetCalculator(finalValue);
-			$("#d").data("fromPrevious", true);
+			// $("#d").data("fromPrevious", true);
 		} else {
+
+
+			console.log($("#d").data("valueOne"));
+			console.log($("#d").data("valueTwo"));
+
+			if (previousAction == "+"){
+				var finalValue = parseFloat($("#d").data("valueOne")) + 
+				parseFloat(previousValue);
+			} else if (previousAction == "-") {
+				var finalValue = parseFloat($("#d").data("valueOne")) - 
+				parseFloat(previousValue);
+			} else if (previousAction == "*") {
+				var finalValue = parseFloat($("#d").data("valueOne")) * 
+				parseFloat(previousValue);
+			} else if (previousAction == "/") {
+				var finalValue = parseFloat($("#d").data("valueOne")) / 
+				parseFloat(previousValue);
+			}
+
+			$("#d").val(finalValue);
+
+			resetCalculator(finalValue);
+
+			// $("#d").val();
+
+			// resetCalculator();
 			//both numbers are NOT locked. do nothing.
 		}
 	};
 
 	$(".equals").click(equals);
 
-	$(".function").click(function() {
-		equals();
-		if ($("#d").data("fromPrevious") == true){
-			resetCalculator($("#d").val());
-			$("#d").data("valueOneLocked", false);
-			$("#d").data("fromPrevious", false);
-		}
-// Let it be known that a function has been selected
-		var pendingFunction = $(this).text();
-		$("#d").data("isPendingFunction", true);
-		$("#d").data("thePendingFunction", pendingFunction);
-// Visually represent the current function
-		$(".function").removeClass("pendingFunction");
-		$(this).addClass("pendingFunction");
-
-
-	});
+	$(".function").click(functionButton);
 
 })(jQuery);
 
